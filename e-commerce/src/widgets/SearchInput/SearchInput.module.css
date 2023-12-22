@@ -1,0 +1,8 @@
+.input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.searchButton {
+    background-color: var(--color-primary-400);
+}
