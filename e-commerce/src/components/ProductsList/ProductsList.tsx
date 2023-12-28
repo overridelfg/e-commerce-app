@@ -1,5 +1,7 @@
-import { Container, Grid } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 import ProductCard from "../../widgets/ProductCard/ProductCard";
+import Pagination from "../../widgets/Pagination/Pagination";
+import { Link } from "react-router-dom";
 
 interface ProductListProps {
     
@@ -8,6 +10,12 @@ interface ProductListProps {
 const data = [{
         id: 1,
         img: "https://m.media-amazon.com/images/I/81M2m0Eh2vL._AC_UY436_FMwebp_QL65_.jpg",
+        imges: [
+            "https://m.media-amazon.com/images/I/81M2m0Eh2vL._AC_UY436_FMwebp_QL65_.jpg",
+            "https://m.media-amazon.com/images/I/81q0vIRHV4L._AC_SL1500_.jpg",
+            "https://m.media-amazon.com/images/I/81B3HTt-BOL._AC_SL1500_.jpg",
+            "https://m.media-amazon.com/images/I/71wrLA73ODL._AC_SL1500_.jpg"
+        ],
         title: "IKEA Bergenes Holder for Mobile Phone Tablet Bamboo 104.579.99, Length: 5' Width: 3 ¼ '",
         price: 5,
         rating: 4.4,
@@ -17,6 +25,12 @@ const data = [{
     {
         id: 2,
         img: "https://m.media-amazon.com/images/I/314yTXc79MS._AC_.jpg",
+        imges: [
+            "https://m.media-amazon.com/images/I/314yTXc79MS._AC_.jpg",
+            "https://m.media-amazon.com/images/I/51B+9W1haeS._AC_SX679_.jpg",
+            "https://m.media-amazon.com/images/I/51DOjm3bFzS._AC_SX679_.jpg",
+            "https://m.media-amazon.com/images/I/11Zyg9jjuwS._AC_.jpg"
+        ],
         title: "IKEA KALAS 8 no of Spoon, mixed colors, Plastic",
         price: 8,
         rating: 5 ,
@@ -26,6 +40,12 @@ const data = [{
     {
         id: 3,
         img: "https://m.media-amazon.com/images/I/314yTXc79MS._AC_.jpg",
+        imges: [
+            "https://m.media-amazon.com/images/I/314yTXc79MS._AC_.jpg",
+            "https://m.media-amazon.com/images/I/51B+9W1haeS._AC_SX679_.jpg",
+            "https://m.media-amazon.com/images/I/51DOjm3bFzS._AC_SX679_.jpg",
+            "https://m.media-amazon.com/images/I/11Zyg9jjuwS._AC_.jpg"
+        ],
         title: "IKEA KALAS 8 no of Spoon, mixed colors, Plastic",
         price: 8,
         rating: 5 ,
@@ -35,6 +55,12 @@ const data = [{
     {
         id: 4,
         img: "https://m.media-amazon.com/images/I/314yTXc79MS._AC_.jpg",
+        imges: [
+            "https://m.media-amazon.com/images/I/314yTXc79MS._AC_.jpg",
+            "https://m.media-amazon.com/images/I/51B+9W1haeS._AC_SX679_.jpg",
+            "https://m.media-amazon.com/images/I/51DOjm3bFzS._AC_SX679_.jpg",
+            "https://m.media-amazon.com/images/I/11Zyg9jjuwS._AC_.jpg"
+        ],
         title: "IKEA KALAS 8 no of Spoon, mixed colors, Plastic",
         price: 8,
         rating: 5 ,
@@ -44,6 +70,12 @@ const data = [{
     {
         id: 5,
         img: "https://m.media-amazon.com/images/I/314yTXc79MS._AC_.jpg",
+        imges: [
+            "https://m.media-amazon.com/images/I/314yTXc79MS._AC_.jpg",
+            "https://m.media-amazon.com/images/I/51B+9W1haeS._AC_SX679_.jpg",
+            "https://m.media-amazon.com/images/I/51DOjm3bFzS._AC_SX679_.jpg",
+            "https://m.media-amazon.com/images/I/11Zyg9jjuwS._AC_.jpg"
+        ],
         title: "IKEA KALAS 8 no of Spoon, mixed colors, Plastic",
         price: 8,
         rating: 5 ,
@@ -55,19 +87,25 @@ const data = [{
 const ProductList: React.FC<ProductListProps> = () => {
 
     return (
-        <Grid container spacing={3} sx={{marginTop: "2rem"}}>
-            {data.map((product, index) => {
-                return (<Grid key={index} item xs = {4} md={3}>
-                    <ProductCard
-                      key={product.id}
-                      title={product.title}
-                      price={product.price}
-                      img={product.img}
-                      rating={product.rating}
-                      brand={product.brand}/>
-                </Grid>)
-            })}
-        </Grid>
+        <Box>
+            <Grid container spacing={3} sx={{marginTop: "2rem"}}>
+                {data.map((product, index) => {
+                    return (<Grid key={index} item xs = {12} md={4} lg = {3}>
+                        <Link to={`product/${product.id}`}>
+                            <ProductCard
+                            key={product.id}
+                            title={product.title}
+                            price={product.price}
+                            img={product.img}
+                            rating={product.rating}
+                            brand={product.brand}/>
+                        </Link>
+                    </Grid>)
+                })}
+            </Grid>
+            <Pagination count={10} color={"primary"} sx={{display: "flex", justifyContent: "center"}}/>
+        </Box>
+       
     );
 }
  
