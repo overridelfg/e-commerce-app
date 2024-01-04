@@ -9,7 +9,7 @@ const Error: React.FC<ErrorProps> = () => {
     const error: unknown = useRouteError();
 
     return (
-        <Box sx={{display: "flex", flexDirection: "column", alignItems: "center", color: "white", justifyContent: "center", height: "100%"}}>
+        <Box sx={{display: "flex", flexDirection: "column", alignItems: "center", color: "white", justifyContent: "center"}}>
             <Typography variant="h2">
                 Oops!
             </Typography>

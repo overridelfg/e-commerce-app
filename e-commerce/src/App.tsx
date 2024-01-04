@@ -1,10 +1,10 @@
 import './App.css';
-
 import MainLayout from './layouts/MainLayout';
-import ProductList from './components/ProductsList';
-import Main from './pages/Main/Main';
-import ProductDetails from './components/ProductDetails';
+import ProductList from './pages/ProductsList';
+import ProductDetails from './pages/ProductDetails';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './store';
 
 
 const router = createBrowserRouter([
@@ -27,7 +27,9 @@ const router = createBrowserRouter([
 
 const App: React.FC = () => {
   return (
-     <RouterProvider router={router}/>
+    <Provider store = {store}>
+      <RouterProvider router={router}/>
+    </Provider>
   );
 }
 

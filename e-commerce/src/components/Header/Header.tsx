@@ -6,10 +6,15 @@ import { Button} from "../../ui";
 import { Person, NightsStay, LightMode } from '@mui/icons-material';
 import { Box } from "@mui/material";
 import SearchInput from "../../widgets/SearchInput";
+import Sidebar from "../../ui/Sidebar/Sidebar";
 
 const Header: FC = () => {
 
     const [isCartOpen, setIsCartOpen] = useState(false);
+
+    const showCart = () => {
+        setIsCartOpen(!isCartOpen)
+    }
 
     return <Container
     sx={{backgroundColor: "var(--color-surface-mixed-100)", padding: "1rem", margin: 0}}
@@ -22,13 +27,12 @@ const Header: FC = () => {
                     <Person/>
                 </Button>
                 <Button
-                className={styles.buttonHeader}
-                onClick={() => {setIsCartOpen(!isCartOpen)}}>
+                className={styles.buttonHeader}>
                     Orders
                 </Button>
                 <Button
                 className={styles.buttonHeader}
-                onClick={() => {setIsCartOpen(!isCartOpen)}}>
+                onClick={() => {showCart()}}>
                     {`Cart ${0}`}
                 </Button>
                 <Button
@@ -37,6 +41,13 @@ const Header: FC = () => {
                 </Button>
             </Box>
         </Box>
+        <Sidebar
+            isOpen = {isCartOpen}
+            closeSidebar={showCart}
+            sidebarHeaderTitle="Cart"
+            container={document.getElementById("sidebar")!}>
+            <Typography>HIII</Typography>
+        </Sidebar>
     </Container>
 }
 

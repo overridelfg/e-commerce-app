@@ -1,9 +1,13 @@
-import { Box, ImageList, ImageListItem } from "@mui/material";
-import { useState, MouseEvent } from "react";
+import styles from "./ImageViewer.module.css"
 
-interface ImageViewerProps {
+import { Box, BoxProps, ImageListItem} from "@mui/material";
+import { useState, MouseEvent } from "react";
+import Image from "../../ui/Image/Image";
+
+interface ImageViewerProps extends BoxProps{
     
 }
+
 const data = {
     id: 1,
     img: "https://m.media-amazon.com/images/I/81M2m0Eh2vL._AC_UY436_FMwebp_QL65_.jpg",
@@ -11,6 +15,8 @@ const data = {
         "https://m.media-amazon.com/images/I/81M2m0Eh2vL._AC_UY436_FMwebp_QL65_.jpg",
         "https://m.media-amazon.com/images/I/81q0vIRHV4L._AC_SL1500_.jpg",
         "https://m.media-amazon.com/images/I/81B3HTt-BOL._AC_SL1500_.jpg",
+        "https://m.media-amazon.com/images/I/71wrLA73ODL._AC_SL1500_.jpg",
+        "https://m.media-amazon.com/images/I/71wrLA73ODL._AC_SL1500_.jpg",
         "https://m.media-amazon.com/images/I/71wrLA73ODL._AC_SL1500_.jpg"
     ],
     title: "IKEA Bergenes Holder for Mobile Phone Tablet Bamboo 104.579.99, Length: 5' Width: 3 ¼ '",
@@ -24,31 +30,23 @@ const ImageViewer: React.FC<ImageViewerProps> = (props) => {
 
     const [currentImage, setCurrentImage] = useState<number>(0);
 
-
-    return <Box sx={{display: "flex"}}>
-        <Box sx={{width: "30%"}}>
+    return <Box 
+    sx={{display: "flex", flexDirection: "column"}}
+    {...props}
+    >
+        <Box sx={{ aspectRatio: 1}}>
+            <Image src={data.imges[currentImage]} sx={{width: "100%", height: "100%", objectFit: "contain", borderRadius: "20px"}}/>
+        </Box>
+        <Box sx={{ display: "flex", marginTop: "1rem", flexWrap: "wrap", alignContent: "start", gap: "10px"}}>
         {data.imges.map(((img, id) => {
-            return <img 
-            style={{width: "100%", aspectRatio: 1, objectFit: "contain"}}
+            return <Image
+            sx={{height: "80px", aspectRatio: 1 ,objectFit: "contain", backgroundColor: "white", borderRadius: "5px"}}
+            className={styles.otherImg}
             key = {id}
-            img-key = {id}
             src={img}
             alt=""
             onMouseEnter={() => setCurrentImage(id)}/>;
         }))}
-
-        <ImageList sx={{ width: 500, height: 450 }} cols={1} rowHeight={164}>
-        {data.imges.map((img, idx) => (
-            <ImageListItem key={idx}>
-            <img
-                src={`${img}?w=164&h=164&fit=crop&auto=format`}/>
-            </ImageListItem>
-        ))}
-        </ImageList>
-
-        </Box>
-        <Box sx={{width: "70%"}}>
-            <img src={data.imges[currentImage]} alt="" />
         </Box>
     </Box>;
 }

@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import Header from "../components/Header";
 import CategoriesSidebar from "../components/CategoriesSidebar";
 
@@ -13,9 +13,9 @@ const MainLayout: React.FC<MainLayoutProps> = () => {
             <Header/>
             <Box sx={{display: "flex"}}>
                 <CategoriesSidebar/>
-                <Box sx={{margin: "2rem"}}>
+                <Container maxWidth = {"lg"} sx={{margin: "2rem"}}>
                     <Outlet/>
-                </Box>
+                </Container>
             </Box>
         </Box>
     );
