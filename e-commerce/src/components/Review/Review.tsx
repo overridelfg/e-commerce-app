@@ -1,5 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import Comment from "../../widgets/Comment/Comment";
+import Modal from "../../ui/Modal/Modal";
+import { useState } from "react";
+import { useReview } from "../../providers/ReviewProvider";
 
 const data = [
     {
@@ -24,14 +27,30 @@ interface ReviewProps {
 }
  
 const Review: React.FC<ReviewProps> = () => {
+
+
+    const { closeReviewDialog, openReviewDialog, isReviewDialogOpen } = useReview();
+
     return ( 
         <Box sx={{display: "flex", flexDirection: "column", gap: "2rem"}}>
             <Typography sx={{fontSize: "1.4rem", color: "white"}}>Reviews: </Typography>
+            <Typography
+            sx={{fontSize: "1.1rem", color: "white", cursor: "pointer"}}
+            onClick = {openReviewDialog}
+            >
+                Leave comment</Typography>
             {data.map((review) => {
                 return(
                     <Comment key={review.id} review={review}/>
                 )
             })}
+            <Modal
+            isOpen = {isReviewDialogOpen}
+            closeSidebar={closeReviewDialog}
+            container={document.getElementById("modal")!}
+             >
+                <Typography color={"white"}>HDHSFISF</Typography>
+             </Modal>
         </Box>
      );
 }

@@ -56,7 +56,7 @@ const ImageViewer: React.FC<ImageViewerProps> = (props) => {
         <Box sx={{width: "100%", aspectRatio: 1, borderRadius: "20px"}}>
             <Image src={product.imges[currentImage]}/>
         </Box>
-        <Box sx={{ display: "flex", marginTop: "1rem", flexWrap: "wrap", alignContent: "start", gap: "10px"}}>
+        <Box sx={{ display: "flex", marginTop: "1rem", alignContent: "start", gap: "10px", flexWrap: "nowrap", overflow: "scroll"}}>
         {product.imges.map(((img, id) => {
             return <Box 
                 sx={{height: "80px", aspectRatio: 1, backgroundColor: "white", borderRadius: "5px"}}
