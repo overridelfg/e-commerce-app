@@ -11,7 +11,7 @@ interface MainLayoutProps {
 const MainLayout: React.FC<MainLayoutProps> = () => {
     return ( 
         <CartProvider>
-            <Box sx={{display: "flex", flexDirection: "column", height: "100svh"}}>
+            <Box sx={{display: "flex", flexDirection: "column", height: "100svh", overflow: "scroll"}}>
                 <Header/>
                 <Box sx={{display: "flex", flexGrow: "1"}}>
                     <CategoriesSidebar/>
