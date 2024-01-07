@@ -10,7 +10,7 @@ const Image: React.FC<ImageProps> = (props) => {
     const {src, alt} = props;
 
     return (  
-        <Box component={"img"} {...props} src={src} alt = {alt}/>
+        <Box component={"img"} src={src} alt = {alt} sx={{width: "100%", height: "100%", objectFit: "contain"}}/>
     );
 }
  

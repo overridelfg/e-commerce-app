@@ -1,6 +1,6 @@
 import { Box, Container, Grid } from "@mui/material";
-import ProductCard from "../../widgets/ProductCard/ProductCard";
-import Pagination from "../../widgets/Pagination/Pagination";
+import ProductCard from "../../widgets/ProductCard";
+import Pagination from "../../widgets/Pagination";
 import { Link } from "react-router-dom";
 
 interface ProductListProps {

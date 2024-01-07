@@ -7,14 +7,16 @@ import { Person, NightsStay, LightMode } from '@mui/icons-material';
 import { Box } from "@mui/material";
 import SearchInput from "../../widgets/SearchInput";
 import Sidebar from "../../ui/Sidebar/Sidebar";
+import Cart from "../Cart/Cart";
+import { cartSeletorTotalItemsCount } from "../Cart/cartSelectors";
+import { useSelector } from "react-redux";
+import { useCart } from "../../providers/CartProvider";
 
 const Header: FC = () => {
 
-    const [isCartOpen, setIsCartOpen] = useState(false);
+    const { isCartOpen, openCart, closeCart } = useCart();
 
-    const showCart = () => {
-        setIsCartOpen(!isCartOpen)
-    }
+    const totalCartItems: number = useSelector(cartSeletorTotalItemsCount);
 
     return <Container
     sx={{backgroundColor: "var(--color-surface-mixed-100)", padding: "1rem", margin: 0}}
@@ -32,8 +34,8 @@ const Header: FC = () => {
                 </Button>
                 <Button
                 className={styles.buttonHeader}
-                onClick={() => {showCart()}}>
-                    {`Cart ${0}`}
+                onClick={() => {openCart()}}>
+                    {`Cart ${totalCartItems}`}
                 </Button>
                 <Button
                 className={styles.buttonHeader}>
@@ -43,10 +45,11 @@ const Header: FC = () => {
         </Box>
         <Sidebar
             isOpen = {isCartOpen}
-            closeSidebar={showCart}
+            closeSidebar={closeCart}
             sidebarHeaderTitle="Cart"
+            width="550px"
             container={document.getElementById("sidebar")!}>
-            <Typography>HIII</Typography>
+            <Cart/>
         </Sidebar>
     </Container>
 }

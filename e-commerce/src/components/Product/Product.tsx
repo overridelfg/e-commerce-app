@@ -1,5 +1,5 @@
 import { Box, Rating, Typography, BoxProps } from "@mui/material";
-import QuantityBox from "../../widgets/QuantityBox/QuantityBox";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 
 interface Data {
@@ -102,7 +102,7 @@ const Product: React.FC<ProductProps> = (props) => {
     const descriptionList = product!.description.split(';');
 
     return ( 
-        <Box color={"white"} {...props}>
+        <Box color={"white"} sx={{display: "flex", flexDirection: "column", gap: ".5rem"}}{...props}>
             {product ? (
                 <>
                 <Typography variant="h2">{product.title}</Typography>
@@ -111,14 +111,13 @@ const Product: React.FC<ProductProps> = (props) => {
                     <Typography>{product.rating}</Typography>
                     <Rating name="read-only" precision={0.5} value={product.rating} readOnly />
                 </Box>
-                <Typography >{product.price}</Typography>
+                <Typography >{formatCurrency(product.price)}</Typography>
                 <Typography className="product-details__description">
                     <Typography>About the item<br/></Typography>
                     <ul>
                         {descriptionList.map((el: string, id: number) => <li key={id}>{el}</li>)}
                     </ul>
                 </Typography>
-                <QuantityBox/>
                 </>
             ) : <><h2>Error</h2></>}
         </Box>

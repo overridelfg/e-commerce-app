@@ -6,6 +6,8 @@ const cartItemIdSelector = (state:RootState, itemId: number) => itemId;
 
 export const cartSeletor = (state: RootState) => state.cartReducer.cart
 
+export const cartSeletorTotalItemsCount = (state: RootState) => state.cartReducer.cart.length;
+
 export const cartTotalSelector = createSelector([
     cartSeletor],
     (cart) => {

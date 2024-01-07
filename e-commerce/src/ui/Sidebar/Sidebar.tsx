@@ -9,12 +9,13 @@ interface SidebarProps {
     container: HTMLElement
     isOpen: boolean
     closeSidebar() : void
+    width?: string
     sidebarHeaderTitle?: string
     children?: React.ReactNode
 }
  
 const Sidebar: React.FC<SidebarProps> = (props) => {
-    const { container, children, isOpen, closeSidebar, sidebarHeaderTitle = "" } = props;
+    const { container, children, isOpen, closeSidebar, sidebarHeaderTitle = "", width = "450px" } = props;
 
     const ref = useRef<HTMLDivElement>(null);
 
@@ -31,7 +32,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
         sx={{
             zIndex: 100,
             width: "100%",
-            height: "100vh",
+            height: "100svh",
             position: "fixed",
             top: 0,
             right: 0,
@@ -41,7 +42,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
             <Box 
             ref={ref}
             sx={{
-                width: "450px", 
+                width: width, 
                 height: "100%",
                 backgroundColor: "var(--color-surface-mixed-100)",
                 position: "absolute",
@@ -50,7 +51,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
                 overflow: "auto",
                 padding: "1rem"}}
             >
-                <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem"}}>
                     <Typography variant = {"h4"} color = {"white"}>{sidebarHeaderTitle}</Typography>
                     <Box 
                         sx={{width: "35px", height: "35px"}}
