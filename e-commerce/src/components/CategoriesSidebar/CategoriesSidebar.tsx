@@ -21,7 +21,7 @@ const data = [
 const CategoriesSidebar: React.FC<CategoriesSidebarProps> = (props) => {
 
     const {} = props;
-    return <Box sx={{display: "flex", flexDirection: "column", flexShrink: 0, width: "220px", alignItems: "stretch", backgroundColor: "#191f25", padding: "16px 24px"}}>
+    return <Box sx={{display: "flex", flexDirection: "column", flexShrink: 0, width: "220px", backgroundColor: "#191f25", padding: "16px 24px"}}>
         {data.map((category) => {
             return (
                 <Typography variant = "h6" color={"white"} sx={{wordWrap: "break-word"}}>
