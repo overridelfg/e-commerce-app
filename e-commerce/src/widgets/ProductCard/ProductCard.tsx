@@ -1,16 +1,14 @@
 import { Card, CardMedia, CardContent, Rating, CardProps, Typography} from "@mui/material";
+import { IProduct } from "../../models/IProduct";
 
 interface ProductCardProps extends CardProps { 
-    img: string;
-    title: string;
-    price: number;
-    rating: number;
-    brand: string;
+    product: IProduct;
 }
  
 const ProductCard: React.FC<ProductCardProps> = (props) => {
 
-    const {img, title, price, rating, brand} = props;
+    const { product } = props;
+    const { img, title, brand, price, rating } = product
 
     return (
         <Card sx={{maxWidth: "350px", height: "350px", display: "flex", flexDirection: "column"}}>

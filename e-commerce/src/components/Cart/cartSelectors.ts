@@ -2,7 +2,7 @@ import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
 
-const cartItemIdSelector = (state:RootState, itemId: number) => itemId;
+const cartItemIdSelector = (state:RootState, itemId: string) => itemId;
 
 export const cartSeletor = (state: RootState) => state.cartReducer.cart
 
@@ -24,7 +24,7 @@ export const getItemQuantity = createSelector([
     cartSeletor, 
     cartItemIdSelector],
     (cart, itemId) => {
-        const item = cart.find(cartItem => cartItem.item.id === itemId);
+        const item = cart.find(cartItem => cartItem.item._id === itemId);
         return item ? item.quantity : 0;
     });
 

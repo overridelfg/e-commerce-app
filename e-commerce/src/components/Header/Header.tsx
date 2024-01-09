@@ -11,10 +11,14 @@ import Cart from "../Cart/Cart";
 import { cartSeletorTotalItemsCount } from "../Cart/cartSelectors";
 import { useSelector } from "react-redux";
 import { useCart } from "../../providers/CartProvider";
+import Login from "../Auth/Login/Login"
+import Modal from "../../ui/Modal/Modal";
+import { useAuth } from "../../providers/AuthProvider";
 
 const Header: FC = () => {
 
     const { isCartOpen, openCart, closeCart } = useCart();
+    const { isAuthOpen, openAuthModal, closeAuthModal } = useAuth();
 
     const totalCartItems: number = useSelector(cartSeletorTotalItemsCount);
 
@@ -25,8 +29,8 @@ const Header: FC = () => {
             <Typography variant="h4" color={"white"} sx={{width: "196px"}}>MBEF</Typography>
             <SearchInput/>
             <Box sx={{display: "flex"}}>
-                <Button className={styles.buttonHeader}>
-                    <Person/>
+                <Button className={styles.buttonHeader} onClick={() => {openAuthModal()}} >
+                    <Person />
                 </Button>
                 <Button
                 className={styles.buttonHeader}>
@@ -51,6 +55,9 @@ const Header: FC = () => {
             container={document.getElementById("sidebar")!}>
             <Cart/>
         </Sidebar>
+        <Modal isOpen = {isAuthOpen}  closeModal = {closeAuthModal} container={document.getElementById("modal")!}>
+            <Login/>
+        </Modal>
     </Container>
 }
 

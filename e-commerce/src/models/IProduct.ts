@@ -1,5 +1,5 @@
-export interface Product {
-    id: number
+export interface IProduct {
+    _id: string;
     img: string
     imges: Array<string>
     title: string

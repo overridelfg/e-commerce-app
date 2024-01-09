@@ -46,7 +46,7 @@ const Review: React.FC<ReviewProps> = () => {
             })}
             <Modal
             isOpen = {isReviewDialogOpen}
-            closeSidebar={closeReviewDialog}
+            closeModal={closeReviewDialog}
             container={document.getElementById("modal")!}
              >
                 <Typography color={"white"}>HDHSFISF</Typography>

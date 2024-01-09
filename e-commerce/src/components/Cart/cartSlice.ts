@@ -1,16 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { IProduct } from "../../models/IProduct";
 
 export interface Cart {
-    item: {
-        id: number,
-        img: string,
-        imges: Array<string>,
-        title: string,
-        price: number,
-        rating: number,
-        brand: string,
-        description: string
-    }
+    item: IProduct
     quantity: number
 }
 
@@ -29,7 +21,7 @@ const cartSlice = createSlice({
         increaseQuantity: (state, action) => {
             let isItem = false;
             for(let i = 0; i < state.cart.length; i++){
-                if(state.cart[i].item.id === action.payload.id){
+                if(state.cart[i].item._id === action.payload._id){
                     isItem = true;
                     break;
                 }
@@ -38,7 +30,7 @@ const cartSlice = createSlice({
                 state.cart.push({item: action.payload, quantity: 1});
             }else{
                 state.cart = state.cart.map(cartItem => {
-                    if(cartItem.item.id === action.payload.id) {
+                    if(cartItem.item._id === action.payload._id) {
                         return {...cartItem, quantity: cartItem.quantity + 1};
                     }else {
                         return cartItem;
@@ -47,11 +39,11 @@ const cartSlice = createSlice({
             }
         },
         decreaseQuantity: (state, action) => {
-            if(state.cart.find(cartItem => cartItem.item.id === action.payload.id)?.quantity === 1){
-                state.cart = state.cart.filter(cartItem => cartItem.item.id !== action.payload.id);
+            if(state.cart.find(cartItem => cartItem.item._id === action.payload._id)?.quantity === 1){
+                state.cart = state.cart.filter(cartItem => cartItem.item._id !== action.payload._id);
             } else {
                 state.cart = state.cart.map(cartItem => {
-                    if(cartItem.item.id === action.payload.id){
+                    if(cartItem.item._id === action.payload._id){
                         return {...cartItem, quantity: cartItem.quantity - 1}
                     } else {
                         return cartItem;
@@ -60,7 +52,7 @@ const cartSlice = createSlice({
             }
         },
         removeFromCart: (state, action) => {
-            state.cart = state.cart.filter(cartItem => cartItem.item.id !== action.payload.id);
+            state.cart = state.cart.filter(cartItem => cartItem.item._id !== action.payload._id);
         }
     }
 });

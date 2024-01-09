@@ -6,7 +6,7 @@ import { useRef } from "react";
 interface ModalProps {
     container: HTMLElement
     isOpen: boolean
-    closeSidebar() : void
+    closeModal() : void
     width?: string
     height? : string
     sidebarHeaderTitle?: string
@@ -15,21 +15,21 @@ interface ModalProps {
  
 const Modal: React.FC<ModalProps> = (props) => {
 
-    const { container, children, isOpen, closeSidebar, sidebarHeaderTitle = "", width = "450px", height = "450px" } = props;
+    const { container, children, isOpen, closeModal, sidebarHeaderTitle = "", width = "450px", height = "450px" } = props;
 
 
     const ref = useRef<HTMLDivElement>(null);
 
 
-    const closeSidebarHandler = (e: React.MouseEvent<HTMLElement>) => {
+    const closeModalHandler = (e: React.MouseEvent<HTMLElement>) => {
         if(!ref.current?.contains(e.target as HTMLElement)) {
-            closeSidebar();
+            closeModal();
         }
     }
 
     return ReactDOM.createPortal(
         <Box
-        onClick = {(e : React.MouseEvent<HTMLElement>) => {closeSidebarHandler(e)}} 
+        onClick = {(e : React.MouseEvent<HTMLElement>) => {closeModalHandler(e)}} 
         sx={{
             zIndex: 100,
             width: "100%",
@@ -57,7 +57,7 @@ const Modal: React.FC<ModalProps> = (props) => {
                     <Typography variant = {"h4"} color = {"white"}>{sidebarHeaderTitle}</Typography>
                     <Box 
                         sx={{width: "35px", height: "35px"}}
-                        onClick = {() => {closeSidebar()}}>
+                        onClick = {() => {closeModal()}}>
                         <CloseIcon sx={{width: "100%", height: "100%", color: "white"}}/>
                     </Box>
                 </Box>
