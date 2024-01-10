@@ -1,18 +1,20 @@
 import { Box, Typography } from "@mui/material";
 import Comment from "../../widgets/Comment/Comment";
 import Modal from "../../ui/Modal/Modal";
-import { useState } from "react";
+import { useEffect } from "react";
 import { useReview } from "../../providers/ReviewProvider";
 import { IReview } from "../../models/IReview";
 import ReviewForm from "./ReviewForm/ReviewForm";
 
 interface ReviewProps {
     reviews: IReview[];
+    productId: string;
 }
  
-const Review: React.FC<ReviewProps> = ({reviews}) => {
+const Review: React.FC<ReviewProps> = ({reviews, productId}) => {
 
     const { closeReviewDialog, openReviewDialog, isReviewDialogOpen } = useReview();
+
 
     return ( 
         <Box sx={{display: "flex", flexDirection: "column", gap: "2rem"}}>
@@ -31,8 +33,9 @@ const Review: React.FC<ReviewProps> = ({reviews}) => {
             isOpen = {isReviewDialogOpen}
             closeModal={closeReviewDialog}
             container={document.getElementById("modal")!}
+            height="auto"
              >
-                <ReviewForm/>
+                <ReviewForm productId = {productId}/>
              </Modal>
         </Box>
      );

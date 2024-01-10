@@ -56,7 +56,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
                 </Box>
                 </Box>
                 {reviews ? (
-                    <Review reviews={reviews}/>
+                    <Review reviews={reviews} productId={product._id}/>
                 ) : null}
                 
             </>
