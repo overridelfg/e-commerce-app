@@ -1,16 +1,27 @@
 import { Box, Rating, Typography, BoxProps } from "@mui/material";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { IProduct } from "../../models/IProduct";
+import { IReview } from "../../models/IReview";
 
 interface ProductProps extends BoxProps  {
     product: IProduct;
+    reviews: IReview[];
 }
  
 const Product: React.FC<ProductProps> = (props) => {
 
-    const { product } = props;
+    const { product, reviews } = props;
 
     const descriptionList = product!.description.split(';');
+
+    const getProductTotalRating = () => {
+        const totalRating = reviews.reduce((rating: number, currentReview: IReview) => {
+            return rating + currentReview.rating;
+        }, 0);
+        return (totalRating / reviews.length).toFixed(1);
+    }
+
+    const totalRating: number = +getProductTotalRating();
 
     return ( 
         <Box color={"white"} sx={{display: "flex", flexDirection: "column", gap: ".5rem"}}{...props}>
@@ -20,8 +31,8 @@ const Product: React.FC<ProductProps> = (props) => {
                 <Typography variant="h2">{product.title}</Typography>
                 <Typography>Brand: {product.brand}</Typography>
                 <Box sx={{display: "flex"}}>
-                    <Typography>{product.rating}</Typography>
-                    <Rating name="read-only" precision={0.5} value={product.rating} readOnly />
+                    <Typography>{totalRating}</Typography>
+                    <Rating name="read-only" precision={0.5} value={totalRating} readOnly />
                 </Box>
                 <Typography >{formatCurrency(product.price)}</Typography>
                 <Typography className="product-details__description">

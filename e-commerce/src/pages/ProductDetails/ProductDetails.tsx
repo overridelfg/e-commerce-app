@@ -51,7 +51,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
                 <Box sx={{display: "flex", gap: "3rem"}}>
                 <ImageViewer product={product} width={"40%"} sx={{flexShrink: 1}}/>
                 <Box sx={{display: "flex", flexDirection: "column", width: "60%", gap: "1rem"}}>
-                    <Product product = {product}/>
+                    <Product product = {product} reviews={reviews ? reviews : []}/>
                     <QuantityBox product = {product} />
                 </Box>
                 </Box>
