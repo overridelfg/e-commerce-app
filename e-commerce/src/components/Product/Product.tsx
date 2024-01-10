@@ -16,6 +16,7 @@ const Product: React.FC<ProductProps> = (props) => {
         <Box color={"white"} sx={{display: "flex", flexDirection: "column", gap: ".5rem"}}{...props}>
             {product ? (
                 <>
+                
                 <Typography variant="h2">{product.title}</Typography>
                 <Typography>Brand: {product.brand}</Typography>
                 <Box sx={{display: "flex"}}>

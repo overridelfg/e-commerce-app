@@ -1,11 +1,11 @@
 import { Box, Typography } from "@mui/material";
-import { Review } from "../../models/Review";
+import { IReview } from "../../models/IReview";
 import Image from "../../ui/Image/Image";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Rating from "../../ui/Rating/Rating";
 
 interface CommentProps {
-    review: Review
+    review: IReview
 }
  
 const Comment: React.FC<CommentProps> = ({ review }) => {
@@ -15,10 +15,10 @@ const Comment: React.FC<CommentProps> = ({ review }) => {
             <Box sx={{display: "flex", gap: "1rem"}}>
                 <AccountCircleIcon sx={{width: "60px", height: "60px"}}/>
                 <Box sx={{display: "flex", flexDirection: "column", gap: ".4rem"}}>
-                    <Typography>{review.user}</Typography>
+                    <Typography>{review.username}</Typography>
                     <Box sx={{display: "flex", gap: "0.4rem"}}>
                         <Rating value={review.rating} color="white" readOnly/>
-                        <Typography>{review.date}</Typography>
+                        <Typography>{review.createdAt}</Typography>
                     </Box>
                 </Box>
             </Box>

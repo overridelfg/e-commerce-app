@@ -1,5 +1,6 @@
 import { Card, CardMedia, CardContent, Rating, CardProps, Typography} from "@mui/material";
 import { IProduct } from "../../models/IProduct";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 interface ProductCardProps extends CardProps { 
     product: IProduct;
@@ -29,7 +30,7 @@ const ProductCard: React.FC<ProductCardProps> = (props) => {
                 <Typography color={"#1565c0"}>
                     {brand}
                 </Typography>
-                <Typography color={"white"}>{price}</Typography>
+                <Typography color={"white"}>{formatCurrency(price)}</Typography>
                 <Rating
                     className= "item__rating"
                     name="read-only"

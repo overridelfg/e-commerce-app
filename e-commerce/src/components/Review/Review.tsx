@@ -3,31 +3,14 @@ import Comment from "../../widgets/Comment/Comment";
 import Modal from "../../ui/Modal/Modal";
 import { useState } from "react";
 import { useReview } from "../../providers/ReviewProvider";
-
-const data = [
-    {
-        id: 1,
-        comment: "This is a great introduction to MUI styling concepts. The date picker code needs to be updated for the latest API. Layout options are confusing for beginners. It's not clear when I should use a Grid, Container, Stack, FormGroup, FormControl, etc. to align components. It's also not clear at which level I should apply margins, padding etc.: at the component level? Container? The date picker and autocomplete components are too complicated to be used as examples. It would be better to keep the code short and focus on cleanly aligning components to create a polished look.",
-        user: "Name1",
-        rating: 4,
-        date: "2017-12-23"
-    },
-    {
-        id: 2,
-        comment: "Sehr praktisch orientierte Vorgehensweise und gut strukturiert. Wie viele Kurse aus dem UI-Umfeld nicht ganz aktuell und deshalb sehen meine eigenen Ergebnisse manchmal nicht so aus, wie in dem Kurs",
-        user: "Name2",
-        rating: 5,
-        date: "2017-12-23"
-    }
-]
-
+import { IReview } from "../../models/IReview";
+import ReviewForm from "./ReviewForm/ReviewForm";
 
 interface ReviewProps {
-    
+    reviews: IReview[];
 }
  
-const Review: React.FC<ReviewProps> = () => {
-
+const Review: React.FC<ReviewProps> = ({reviews}) => {
 
     const { closeReviewDialog, openReviewDialog, isReviewDialogOpen } = useReview();
 
@@ -39,9 +22,9 @@ const Review: React.FC<ReviewProps> = () => {
             onClick = {openReviewDialog}
             >
                 Leave comment</Typography>
-            {data.map((review) => {
+            {reviews.map((review, id) => {
                 return(
-                    <Comment key={review.id} review={review}/>
+                    <Comment key={id} review={review}/>
                 )
             })}
             <Modal
@@ -49,7 +32,7 @@ const Review: React.FC<ReviewProps> = () => {
             closeModal={closeReviewDialog}
             container={document.getElementById("modal")!}
              >
-                <Typography color={"white"}>HDHSFISF</Typography>
+                <ReviewForm/>
              </Modal>
         </Box>
      );
