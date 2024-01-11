@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import  axios from "axios";
 import { IProduct } from "../../models/IProduct";
 import { IReview } from "../../models/IReview";
+import { ReviewModalProvider, ReviewProvider, useReview } from "../../providers/ReviewProvider";
 
 interface ProductDetailsProps {
     
@@ -19,7 +20,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
     const { productId } = useParams();
 
     const [product, setProduct] = useState<IProduct>();
-    const [reviews, setReviews] = useState<IReview[]>();
+
+    const { updateReviews, reviews } = useReview();
 
 
     const getProductById = async () => {
@@ -32,14 +34,19 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
 
     const getReviewsById = async () => {
         await axios.get<IReview[]>(`http://localhost:3001/reviews/${productId}`).then((res) => {
-            setReviews(res.data)
+            updateReviews(res.data)
         }).catch((err)=> {
             console.log(err)
         })
     }
 
     useEffect( () => {
+        console.log("hi")
         getProductById();
+    }, []);
+
+    useEffect( () => {
+        console.log("hi")
         getReviewsById();
     }, []);
 
@@ -51,13 +58,15 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
                 <Box sx={{display: "flex", gap: "3rem"}}>
                 <ImageViewer product={product} width={"40%"} sx={{flexShrink: 1}}/>
                 <Box sx={{display: "flex", flexDirection: "column", width: "60%", gap: "1rem"}}>
-                    <Product product = {product} reviews={reviews ? reviews : []}/>
+                    <Product product = {product}/>
                     <QuantityBox product = {product} />
                 </Box>
                 </Box>
-                {reviews ? (
-                    <Review reviews={reviews} productId={product._id}/>
-                ) : null}
+                    {reviews ? (
+                        <ReviewModalProvider>
+                                <Review productId={product._id}/>
+                        </ReviewModalProvider>
+                    ) : null}
                 
             </>
     ) : (  <Stack spacing={1}>

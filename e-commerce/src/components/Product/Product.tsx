@@ -2,15 +2,16 @@ import { Box, Rating, Typography, BoxProps } from "@mui/material";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { IProduct } from "../../models/IProduct";
 import { IReview } from "../../models/IReview";
+import { useReview } from "../../providers/ReviewProvider";
 
 interface ProductProps extends BoxProps  {
     product: IProduct;
-    reviews: IReview[];
 }
  
 const Product: React.FC<ProductProps> = (props) => {
 
-    const { product, reviews } = props;
+    const { product } = props;
+    const { reviews } = useReview();
 
     const descriptionList = product!.description.split(';');
 
@@ -18,8 +19,11 @@ const Product: React.FC<ProductProps> = (props) => {
         const totalRating = reviews.reduce((rating: number, currentReview: IReview) => {
             return rating + currentReview.rating;
         }, 0);
+
         return (totalRating / reviews.length).toFixed(1);
     }
+
+    console.log(product)
 
     const totalRating: number = +getProductTotalRating();
 

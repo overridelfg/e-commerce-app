@@ -2,19 +2,18 @@ import { Box, Typography } from "@mui/material";
 import Comment from "../../widgets/Comment/Comment";
 import Modal from "../../ui/Modal/Modal";
 import { useEffect } from "react";
-import { useReview } from "../../providers/ReviewProvider";
+import { ReviewModalProvider, useModalReview, useReview } from "../../providers/ReviewProvider";
 import { IReview } from "../../models/IReview";
 import ReviewForm from "./ReviewForm/ReviewForm";
 
 interface ReviewProps {
-    reviews: IReview[];
     productId: string;
 }
  
-const Review: React.FC<ReviewProps> = ({reviews, productId}) => {
+const Review: React.FC<ReviewProps> = ({productId}) => {
 
-    const { closeReviewDialog, openReviewDialog, isReviewDialogOpen } = useReview();
-
+    const { reviews } = useReview();
+    const {closeReviewDialog, openReviewDialog, isReviewDialogOpen} = useModalReview();
 
     return ( 
         <Box sx={{display: "flex", flexDirection: "column", gap: "2rem"}}>
@@ -30,6 +29,7 @@ const Review: React.FC<ReviewProps> = ({reviews, productId}) => {
                 )
             })}
             <Modal
+            sidebarHeaderTitle = {"Leave comment"}
             isOpen = {isReviewDialogOpen}
             closeModal={closeReviewDialog}
             container={document.getElementById("modal")!}

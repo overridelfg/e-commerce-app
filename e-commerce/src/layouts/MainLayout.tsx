@@ -13,19 +13,17 @@ interface MainLayoutProps {
 const MainLayout: React.FC<MainLayoutProps> = () => {
     return ( 
         <CartProvider>
-            <ReviewProvider>
-                <AuthModalProvider>
-                    <Box sx={{display: "flex", flexDirection: "column", height: "100svh", overflow: "scroll"}}>
-                        <Header/>
-                        <Box sx={{display: "flex", flexGrow: "1"}}>
-                            <CategoriesSidebar/>
-                            <Container maxWidth = {"lg"} sx={{margin: "2rem"}}>
-                                <Outlet/>
-                            </Container>
-                        </Box>
+            <AuthModalProvider>
+                <Box sx={{display: "flex", flexDirection: "column", height: "100svh", overflow: "scroll"}}>
+                    <Header/>
+                    <Box sx={{display: "flex", flexGrow: "1"}}>
+                        <CategoriesSidebar/>
+                        <Container maxWidth = {"lg"} sx={{margin: "2rem"}}>
+                            <Outlet/>
+                        </Container>
                     </Box>
-                </AuthModalProvider>
-            </ReviewProvider>
+                </Box>
+            </AuthModalProvider>
         </CartProvider>
     );
 }

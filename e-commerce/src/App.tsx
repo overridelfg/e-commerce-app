@@ -5,6 +5,7 @@ import ProductDetails from './pages/ProductDetails';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
+import { ReviewProvider } from './providers/ReviewProvider';
 
 
 const router = createBrowserRouter([
@@ -18,7 +19,9 @@ const router = createBrowserRouter([
       },
       {
         path: "/product/:productId",
-        element: <ProductDetails/>
+        element: <ReviewProvider>
+           <ProductDetails/>
+        </ReviewProvider>
       }
     ]
   },

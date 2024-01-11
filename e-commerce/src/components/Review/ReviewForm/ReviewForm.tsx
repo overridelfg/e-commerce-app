@@ -8,6 +8,8 @@ import { Button } from "../../../ui";
 import Rating from "../../../ui/Rating/Rating";
 import axios from "axios";
 import { IReview } from "../../../models/IReview";
+import { useHttp } from "../../../hooks/useHttp";
+import { useReview } from "../../../providers/ReviewProvider";
 
  
 interface IReviewFormValues {
@@ -51,18 +53,14 @@ const CommentField: React.FC = () => {
 const ReviewForm: React.FC<ReviewFormProps> = ({productId}) => {
 
 
+    const { request } = useHttp();
+    const { updateReviews, reviews } = useReview();
+
     const addReview = async (review: IReview) => {
-        console.log(JSON.stringify(review))
-        await axios.post<IReview>(`http://localhost:3001/reviews/add`, 
-        review,
-        {
-            headers: {
-            'Content-Type': 'application/json',
-        }
-        }).then((res) => {
-            
-        }).catch((err)=> {
-            console.log(err)
+        request("reviews/add", "post", review).then((res: IReview) => {
+            const reviewsCopy = [...reviews];
+            reviewsCopy.push(res);
+            updateReviews(reviewsCopy);
         })
     }
 
