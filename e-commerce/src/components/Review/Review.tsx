@@ -1,10 +1,9 @@
 import { Box, Typography } from "@mui/material";
-import Comment from "../../widgets/Comment/Comment";
-import Modal from "../../ui/Modal/Modal";
+import { Comment } from "../../widgets";
+import { Modal } from "../../ui";
 import { useEffect } from "react";
-import { ReviewModalProvider, useModalReview, useReview } from "../../providers/ReviewProvider";
-import { IReview } from "../../models/IReview";
-import ReviewForm from "./ReviewForm/ReviewForm";
+import { useModalReview, useReview } from "../../providers/ReviewProvider";
+import ReviewForm from "./ReviewForm";
 
 interface ReviewProps {
     productId: string;

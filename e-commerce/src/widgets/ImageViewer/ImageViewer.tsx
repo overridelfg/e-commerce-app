@@ -1,7 +1,7 @@
 import styles from "./ImageViewer.module.css"
 
-import { Box, BoxProps, ImageListItem} from "@mui/material";
-import { useState, MouseEvent } from "react";
+import { Box, BoxProps} from "@mui/material";
+import { useState } from "react";
 import Image from "../../ui/Image/Image";
 import { IProduct } from "../../models/IProduct";
 

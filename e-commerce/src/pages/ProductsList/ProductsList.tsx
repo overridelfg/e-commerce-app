@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { IProduct } from "../../models/IProduct";
+import { Button } from "../../ui";
+import { CategoriesFilter } from "../../widgets";
+import SortFilter from "../../widgets/SortFilter/SortFilter";
+import { useHttp } from "../../hooks/useHttp";
 
 interface ProductListProps {
     
@@ -14,27 +18,33 @@ const ProductList: React.FC<ProductListProps> = () => {
 
 
     const [products, setProducts] = useState<IProduct[]>([]);
+    const [currentSort, setCurrentSort] = useState<string>('All');
+    const { request } = useHttp();
 
     useEffect(() => {
-        axios.get<IProduct[]>('http://localhost:3001/products').then((res) => {
-            setProducts(res.data)
-            console.log(res.data)
+       request(`products${currentSort !== 'All' ? `?sort=${currentSort}` : ''}`, 'get', {
+       }).then((res) => {
+            setProducts(res)
         })
-    }, []);
+    }, [currentSort]);
 
 
     return (
-        <Box>
-            <Grid container spacing={3} sx={{marginTop: "2rem"}}>
-                {products.map((product, index) => {
-                    return (<Grid key={index} item xs = {12} md={4} lg = {3}>
-                        <Link to={`product/${product._id}`}>
-                            <ProductCard product={product}/>
-                        </Link>
-                    </Grid>)
-                })}
-            </Grid>
-            <Pagination count={10} color={"primary"} sx={{display: "flex", justifyContent: "center"}}/>
+        <Box sx={{display: "flex", height: "100%"}}>
+            <CategoriesFilter/>
+            <Box sx={{flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "spa"}}>
+                <SortFilter setCurrentSort = {(sort: string) => setCurrentSort(sort)}/>
+                <Grid container spacing={3} sx={{marginTop: "2rem"}}>
+                    {products.map((product, index) => {
+                        return (<Grid key={index} item xs = {12} md={4} lg = {3}>
+                            <Link to={`product/${product._id}`}>
+                                <ProductCard product={product}/>
+                            </Link>
+                        </Grid>)
+                    })}
+                </Grid>
+                <Pagination count={10} color={"primary"} sx={{display: "flex", justifyContent: "center",}}/>
+            </Box>
         </Box>
        
     );

@@ -1,3 +1,5 @@
+import { ICateogry } from "./ICategory";
+
 export interface IProduct {
     _id: string;
     img: string
@@ -7,4 +9,6 @@ export interface IProduct {
     rating: number
     brand: string
     description: string
+    createdAt: Date,
+    categories: ICateogry[]
 }

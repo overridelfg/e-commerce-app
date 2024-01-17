@@ -9,7 +9,8 @@ import Rating from "../../../ui/Rating/Rating";
 import axios from "axios";
 import { IReview } from "../../../models/IReview";
 import { useHttp } from "../../../hooks/useHttp";
-import { useReview } from "../../../providers/ReviewProvider";
+import { useModalReview, useReview } from "../../../providers/ReviewProvider";
+import { current } from "@reduxjs/toolkit";
 
  
 interface IReviewFormValues {
@@ -55,12 +56,14 @@ const ReviewForm: React.FC<ReviewFormProps> = ({productId}) => {
 
     const { request } = useHttp();
     const { updateReviews, reviews } = useReview();
+    const {closeReviewDialog} = useModalReview();
 
     const addReview = async (review: IReview) => {
         request("reviews/add", "post", review).then((res: IReview) => {
             const reviewsCopy = [...reviews];
             reviewsCopy.push(res);
             updateReviews(reviewsCopy);
+            closeReviewDialog();
         })
     }
 
@@ -69,6 +72,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({productId}) => {
                 .min(4, 'Min 4 length')
                 .required('This field is required.'),
         rating: Yup.number()
+                .min(1, 'Put raing')
                 .required('This field is required.')
     });
 
@@ -81,12 +85,16 @@ const ReviewForm: React.FC<ReviewFormProps> = ({productId}) => {
     return ( <Formik
         initialValues={reviewFormInitialValues}
         onSubmit={(values) =>  {
+
+            const date = new Date();
+            const currentDate = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDay();
+
             addReview({
                 comment: values.comment,
                 rating: values.rating,
                 productId: productId,
                 username: "Hi",
-                createdAt: Date.now().toString()})
+                createdAt: currentDate});
         }}
 
         validationSchema = {reviewValidationSchema}>

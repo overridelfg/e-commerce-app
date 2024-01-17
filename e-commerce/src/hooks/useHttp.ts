@@ -4,7 +4,7 @@ import { useCallback } from "react";
 
 export const useHttp = () => {
 
-    const request = useCallback(async (url: string, method: string = 'get', body: unknown, headers = {'Content-Type': 'application/json'}) => {
+    const request = useCallback(async (url: string, method: string = 'get', body?: unknown, headers = {'Content-Type': 'application/json'}) => {
 
         try {
             const response = await axios.request({

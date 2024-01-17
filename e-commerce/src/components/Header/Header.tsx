@@ -1,19 +1,21 @@
 import styles from "./Header.module.css"
 
-import { Container, Typography } from "@mui/material";
 import { FC, useState } from "react";
-import { Button} from "../../ui";
+
+import { Container, Typography } from "@mui/material";
 import { Person, NightsStay, LightMode } from '@mui/icons-material';
 import { Box } from "@mui/material";
-import SearchInput from "../../widgets/SearchInput";
-import Sidebar from "../../ui/Sidebar/Sidebar";
-import Cart from "../Cart/Cart";
+
 import { cartSeletorTotalItemsCount } from "../Cart/cartSelectors";
 import { useSelector } from "react-redux";
+
 import { useCart } from "../../providers/CartProvider";
-import Login from "../Auth/Login/Login"
-import Modal from "../../ui/Modal/Modal";
 import { useAuth } from "../../providers/AuthProvider";
+
+import Cart from "../Cart/Cart";
+import Login from "../Auth/Login/Login";
+import { SearchInput } from "../../widgets";
+import { Modal, Sidebar, Button } from "../../ui";
 
 const Header: FC = () => {
 

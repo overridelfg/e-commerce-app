@@ -1,11 +1,12 @@
 import { Box, Typography } from "@mui/material";
+
 import { cartSeletor } from "./cartSelectors";
 import { useSelector } from "react-redux";
 import { cartTotalPriceSelector } from "./cartSelectors";
+
 import { formatCurrency } from "../../utils/formatCurrency";
-import CartItem from "./CartItem/CartItem";
-import { Link } from "react-router-dom";
-import { useCart } from "../../providers/CartProvider";
+
+import CartItem from "./CartItem";
 
 
 interface CartProps {
