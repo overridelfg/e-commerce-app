@@ -19,10 +19,9 @@ const SortFilter: React.FC<SortFilterProps> = () => {
         dispatch(updateQueryParam({key: 'sort', value: event.target.value }))
     };
 
-    
     return ( 
         <FormControl variant="standard" sx={{
-          maxWidth: "200px",
+          minWidth: '200px',
           color: "white",
          }}>
         <InputLabel id="sortLabel" sx={{color: "white"}}>Sort</InputLabel>

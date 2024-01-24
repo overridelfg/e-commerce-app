@@ -21,13 +21,14 @@ const ProductList: React.FC<ProductListProps> = () => {
 
     const [products, setProducts] = useState<IProduct[]>([]);
     const [productsSize, setProductsSize] = useState<number>(1);
+    const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
     const { request } = useHttp();
 
     const filtersQuery = useSelector(filtersSelector);
 
     useEffect(() => {
-       request(`products?page=${filtersQuery.page}&perPage=${4}&sort=${filtersQuery.sort}`, 'get', {
+       request(`products?page=${filtersQuery.page}&perPage=${filtersQuery.perPage}&sort=${filtersQuery.sort}`, 'get', {
        }).then((res: IGetAllProductsDTO) => {
             setProducts(res.products);
             setProductsSize(res.length);
@@ -37,9 +38,14 @@ const ProductList: React.FC<ProductListProps> = () => {
 
     return (
         <Box sx={{display: "flex", height: "100%"}}>
-            <CategoriesFilter setProducts={(products: IProduct[]) => setProducts(products)}/>
-            <Box sx={{flexGrow: 1, display: "flex", flexDirection: "column"}}>
-                <SortFilter/>
+            <CategoriesFilter setProducts={(products: IProduct[]) => setProducts(products)} isOpen = {isFiltersOpen}/>
+            <Box sx={{flexGrow: 1, display: "flex", flexDirection: "column", flexShrink: 10}}>
+                <Box sx={{display: "flex", width: "100%", alignItems: "center", justifyContent: "space-between"}}>
+                    <Button onClick = {() => {setIsFiltersOpen(!isFiltersOpen)}}>
+                        {isFiltersOpen ? "Close filters" : "Open filters"}
+                        </Button>
+                    <SortFilter/>
+                </Box>
                 <Box sx={{display: "flex", flexDirection: "column", justifyContent: "space-between", flexGrow: 1}}>
                     <Grid container spacing={3} sx={{marginTop: "2rem"}}>
                         {products.map((product, index) => {

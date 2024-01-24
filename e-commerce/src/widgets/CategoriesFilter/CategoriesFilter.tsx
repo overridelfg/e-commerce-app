@@ -5,15 +5,19 @@ import { IProduct } from "../../models/IProduct";
 import { ICateogry } from "../../models/ICategory";
 import { IGetAllCateogriesDTO } from "../../models/dto/IGetAllCateogriesDTO";
 
+import styles from './CategoriesFilter.module.css';
+
 
 interface CategoriesFilterProps {
     setProducts: (products: IProduct[]) => void;
+    isOpen: boolean;
 }
  
 const CategoriesFilter: React.FC<CategoriesFilterProps> = (props) => {
 
     const [categories, setCategories]  = useState<ICateogry[]>([]);
     const [currentFilters, setCurrentFilters] = useState("all");
+    const { isOpen } = props;
     const { request } = useHttp();
     const { setProducts } = props;
 
@@ -50,7 +54,9 @@ const CategoriesFilter: React.FC<CategoriesFilterProps> = (props) => {
     }, []);
 
     return ( 
-        <Box sx={{display: "flex", flexDirection: "column", gap: "1rem", width: "200px"}}>
+        <Box
+        className = {isOpen ? styles.open : styles.box}
+        sx={{display: "flex", flexDirection: "column", gap: "1rem" , flexShrink: 0}}>
             <Box sx={{display: "flex", flexDirection: "column", gap: ".3rem"}}>
                 <Typography variant="h5" color={"white"}>Category</Typography>
                 <FormControl>
