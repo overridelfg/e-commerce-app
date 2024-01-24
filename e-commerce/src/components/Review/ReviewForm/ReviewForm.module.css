@@ -7,3 +7,7 @@
 .formRating {
     align-self: flex-start;
 }
+
+.formComment {
+    color: rgb(156, 13, 13);
+}

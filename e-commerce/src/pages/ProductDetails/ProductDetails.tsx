@@ -21,7 +21,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
 
     const [product, setProduct] = useState<IProduct>();
 
-    const { updateReviews, reviews } = useReview();
+    const { updateReviews, reviews, reviewsCount } = useReview();
 
 
     const getProductById = async () => {
@@ -41,12 +41,10 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
     }
 
     useEffect( () => {
-        console.log("hi")
         getProductById();
     }, []);
 
     useEffect( () => {
-        console.log("hi")
         getReviewsById();
     }, []);
 
@@ -58,7 +56,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
                 <Box sx={{display: "flex", gap: "3rem"}}>
                 <ImageViewer product={product} width={"40%"} sx={{flexShrink: 1}}/>
                 <Box sx={{display: "flex", flexDirection: "column", width: "60%", gap: "1rem"}}>
-                    <Product product = {product}/>
+                    <Product product = {product} reviewsCount = {reviewsCount}/>
                     <QuantityBox product = {product} />
                 </Box>
                 </Box>

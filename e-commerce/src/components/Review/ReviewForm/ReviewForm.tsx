@@ -25,12 +25,12 @@ interface ReviewFormProps {
 const RatingField: React.FC = () => {
     const [field, meta, helpers] = useField('rating');
     return (
-        <>
+        <Box sx={{display: "flex", flexDirection: "column"}}>
             <Rating 
             className={styles.formRating}
             onChange = {(e, newValue) => {helpers.setValue(newValue)}}/>
-            <ErrorMessage name="rating" component="div" />
-        </>
+            <ErrorMessage name="rating" component="div" className={styles.formComment} />
+        </Box>
     );
 };
 
@@ -38,7 +38,7 @@ const CommentField: React.FC = () => {
     const [field, meta, helpers] = useField('comment');
 
     return (
-        <>
+        <Box sx={{display: "flex", flexDirection: "column"}}>
          <TextField
             name="comment"
             type="text"
@@ -46,8 +46,11 @@ const CommentField: React.FC = () => {
             multiline
             sx={{borderColor: "white"}}
             onChange = {(e: React.ChangeEvent<HTMLInputElement>) => {helpers.setValue(e.target.value)}}/>
-        <ErrorMessage name="comment" component="div" />
-        </>
+        <ErrorMessage 
+        className={styles.formComment}
+        name="comment"
+        component="div" />
+        </Box>
     );
 };
 
@@ -93,7 +96,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({productId}) => {
                 comment: values.comment,
                 rating: values.rating,
                 productId: productId,
-                username: "Hi",
+                username: "User",
                 createdAt: currentDate});
         }}
 

@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { Comment } from "../../widgets";
 import { Modal } from "../../ui";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useModalReview, useReview } from "../../providers/ReviewProvider";
 import ReviewForm from "./ReviewForm";
 
@@ -12,13 +12,13 @@ interface ReviewProps {
 const Review: React.FC<ReviewProps> = ({productId}) => {
 
     const { reviews } = useReview();
-    const {closeReviewDialog, openReviewDialog, isReviewDialogOpen} = useModalReview();
+    const {closeReviewDialog, openReviewDialog, isReviewDialogOpen} = useModalReview();  
 
     return ( 
         <Box sx={{display: "flex", flexDirection: "column", gap: "2rem"}}>
             <Typography sx={{fontSize: "1.4rem", color: "white"}}>Reviews: </Typography>
             <Typography
-            sx={{fontSize: "1.1rem", color: "white", cursor: "pointer"}}
+            sx={{fontSize: "1.1rem", color: "var(--color-primary-100)", cursor: "pointer"}}
             onClick = {openReviewDialog}
             >
                 Leave comment</Typography>

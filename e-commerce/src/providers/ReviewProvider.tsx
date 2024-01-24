@@ -3,8 +3,9 @@ import { IReview } from "../models/IReview";
 
 
 interface IReviewContext {
-    reviews: IReview[],
-    updateReviews: (reviews: IReview[]) => void
+    reviews: IReview[];
+    updateReviews: (reviews: IReview[]) => void;
+    reviewsCount: number;
 }
 
 interface IReviewModalContext {
@@ -15,7 +16,8 @@ interface IReviewModalContext {
 
 const ReviewContext = createContext<IReviewContext>({
     reviews: [],
-    updateReviews: ([]) => {}
+    updateReviews: ([]) => {},
+    reviewsCount: 0
 });
 
 const ReviewModalContext = createContext<IReviewModalContext>({
@@ -40,13 +42,18 @@ interface SidebarProviderProps {
 export const ReviewProvider: React.FC<SidebarProviderProps> = ({ children }) => {
 
     const [reviews, setReviews] = useState<IReview[]>([]);
-    const updateReviews = (updatedReviews: IReview[]) => {setReviews(updatedReviews)};
+    const [reviewsCount, setReviewsCount] = useState<number>(0);
+    const updateReviews = (updatedReviews: IReview[]) => {
+        setReviews(updatedReviews);
+        setReviewsCount(updatedReviews.length);
+    };
 
     return (
         <ReviewContext.Provider 
         value={{
             reviews,
-            updateReviews}}>
+            updateReviews,
+            reviewsCount}}>
             {children}
         </ReviewContext.Provider>
     );

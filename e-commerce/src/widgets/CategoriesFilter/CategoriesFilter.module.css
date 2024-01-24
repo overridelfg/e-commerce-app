@@ -1,11 +1,11 @@
 .box {
     width: 0px;
-    opacity: 0;
-    transition: all 300ms;
+    visibility: hidden;
+    transition: width 300ms;
 }
 
 .open {
     width: 170px;
-    opacity: 1;
-    transition: all 300ms;
+    visibility: visible;
+    transition: width 300ms;
 }
