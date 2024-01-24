@@ -6,46 +6,25 @@ import { ICateogry } from "../../models/ICategory";
 import { IGetAllCateogriesDTO } from "../../models/dto/IGetAllCateogriesDTO";
 
 import styles from './CategoriesFilter.module.css';
+import { useDispatch } from "react-redux";
+import { updateQueryParam } from "../../store/filters/filtersSlice";
+import RangeFilter from "../RangeFilter/RangeFilter";
 
 
 interface CategoriesFilterProps {
-    setProducts: (products: IProduct[]) => void;
     isOpen: boolean;
 }
  
 const CategoriesFilter: React.FC<CategoriesFilterProps> = (props) => {
 
     const [categories, setCategories]  = useState<ICateogry[]>([]);
-    const [currentFilters, setCurrentFilters] = useState("all");
     const { isOpen } = props;
     const { request } = useHttp();
-    const { setProducts } = props;
+    const dispatch = useDispatch();
 
     const filterHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if(event.target.checked) {
-            console.log("checked")
-            event.target.checked = false;
-        }
- 
-        if(event.target) {
-            setCurrentFilters(event.target.value);
-        }else {
-            setCurrentFilters("all");
-        }
+        dispatch(updateQueryParam({key: 'categoryNames', value: event.target.value}))
     };
-
-    const radioButtonClickHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        event.target.checked = !event.target.checked ;
-    }
-
-    useEffect(() => {
-        if(currentFilters !== "All"){
-            request(`products/categories/${currentFilters}`, 'get').then((res: IProduct[]) => {
-                setProducts(res);
-            })
-        }
-    }, [currentFilters]);
-
 
     useEffect(() => {
         request(`categories`).then((res: IGetAllCateogriesDTO) => {
@@ -58,48 +37,20 @@ const CategoriesFilter: React.FC<CategoriesFilterProps> = (props) => {
         className = {isOpen ? styles.open : styles.box}
         sx={{display: "flex", flexDirection: "column", gap: "1rem" , flexShrink: 0}}>
             <Box sx={{display: "flex", flexDirection: "column", gap: ".3rem"}}>
-                <Typography variant="h5" color={"white"}>Category</Typography>
-                <FormControl>
-                    <RadioGroup
-                        aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue="All"
-                        name="radio-buttons-group"
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => filterHandler(event)}
-                    >
-                        <FormControlLabel
-                            key = {1}
-                            value={"All"} 
-                            control={<Radio />}     
-                            sx={{
-                                color: "white",
-                                ".Mui-checked": {
-                                    color: "var(--color-primary-100)"
-                                },
-                                ".MuiSvgIcon-root": {
-                                    color: "white"
-                                },
-                                }}
-                            label={"All"}/>
-                            {categories.map((category, id) => {
-                                return (<FormControlLabel
-                                    key = {id + 1}
-                                    value={category.name} 
-                                    control={<Radio />} 
-                                    sx={{
-                                        color: "white",
-                                        ".MuiSvgIcon-root": {
-                                            color: "white"
-                                        },
-                                        ".Mui-checked": {
-                                            color: "var(--color-primary-100)"
-                                        }
-                                    }}
-                                    label={category.name}
-                                />
-                                )}
-                            )}
-                    </RadioGroup>
-                </FormControl>
+                <Typography variant="h6" color={"white"}>Price from/to</Typography>
+                <RangeFilter/>
+                <Typography variant="h6" color={"white"}>Category</Typography>
+                {categories.map((category, id) => {
+                    return <FormControlLabel 
+                    sx={{color: "white", gap: ".5rem", marginLeft: ".5rem"}}
+                    label={category.name}
+                    control={
+                        <Checkbox
+                        sx={{alignSelf: "flex-start", color: "white", padding: 0}}
+                        value={category.name}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => filterHandler(e)}/>
+                    }/>
+                })}
             </Box>
         </Box>
      );

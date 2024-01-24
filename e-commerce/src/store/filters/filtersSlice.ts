@@ -12,6 +12,9 @@ export type TypeProductDataFilters = {
     page?: string;
     perPage?: string;
     searchTerm?: string;
+    categoryNames?: string[];
+    minPrice? : string;
+    maxPrice? : string;
 }
 
 export interface IFilterState {
@@ -28,7 +31,10 @@ const initialState: IFilterState = {
         sort: EnumProductSort.NEWEST,
         page: '1',
         perPage: '4',
-        searchTerm: ''
+        searchTerm: '',
+        categoryNames: [],
+        minPrice: '0',
+        maxPrice: '10000000000'
     }
 }
 
@@ -38,7 +44,16 @@ const filtersSlice = createSlice({
     reducers: {
         updateQueryParam: (state, action: PayloadAction<IFiltersActionsPayload>) => {
             const {key, value} = action.payload;
-            state.queryParams[key] = value;
+            if(key === 'categoryNames') {
+                if(state.queryParams[key]?.find(el => el === value)) {
+                    state.queryParams[key] = state.queryParams[key]?.filter(el => el !== value);
+                }else {
+                    state.queryParams[key]?.push(value);
+                }
+
+            } else {
+                state.queryParams[key] = value as string;
+            }
         }
     }
 });

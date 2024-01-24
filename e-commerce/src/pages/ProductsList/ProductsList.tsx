@@ -28,7 +28,7 @@ const ProductList: React.FC<ProductListProps> = () => {
     const filtersQuery = useSelector(filtersSelector);
 
     useEffect(() => {
-       request(`products?page=${filtersQuery.page}&perPage=${filtersQuery.perPage}&sort=${filtersQuery.sort}`, 'get', {
+       request(`products?page=${filtersQuery.page}&perPage=${filtersQuery.perPage}&sort=${filtersQuery.sort}&categoryNames=${filtersQuery.categoryNames}&searchTerm=${filtersQuery.searchTerm}&minPrice=${filtersQuery.minPrice}&maxPrice=${filtersQuery.maxPrice}`, 'get', {
        }).then((res: IGetAllProductsDTO) => {
             setProducts(res.products);
             setProductsSize(res.length);
@@ -37,9 +37,9 @@ const ProductList: React.FC<ProductListProps> = () => {
 
 
     return (
-        <Box sx={{display: "flex", height: "100%"}}>
-            <CategoriesFilter setProducts={(products: IProduct[]) => setProducts(products)} isOpen = {isFiltersOpen}/>
-            <Box sx={{flexGrow: 1, display: "flex", flexDirection: "column", flexShrink: 10}}>
+        <Box sx={{display: "flex", height: "100%", gap: "1rem"}}>
+            <CategoriesFilter isOpen = {isFiltersOpen}/>
+            <Box sx={{flexGrow: 1, display: "flex", flexDirection: "column"}}>
                 <Box sx={{display: "flex", width: "100%", alignItems: "center", justifyContent: "space-between"}}>
                     <Button onClick = {() => {setIsFiltersOpen(!isFiltersOpen)}}>
                         {isFiltersOpen ? "Close filters" : "Open filters"}
