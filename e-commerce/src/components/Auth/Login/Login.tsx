@@ -1,5 +1,9 @@
-import { Formik, useField } from 'formik';
+import { ErrorMessage, Form, Formik, useField } from 'formik';
 import * as Yup from 'yup';
+import { Button } from '../../../ui';
+import { Box, TextField } from '@mui/material';
+
+import styles from '../Auth.module.css';
 
 
 interface LoginProps {
@@ -32,60 +36,42 @@ const Login: React.FC<LoginProps> = () => {
         console.log(values);
     };
 
-    return ( 
-        <Formik
-            initialValues={loginFormInitialValues}
-            onSubmit={onSubmitLoginForm}
-            validationSchema = {loginValidationSchema}>
-            {({
-                values,
-                handleSubmit,
-                handleChange,
-                handleBlur,
-                touched,
-                errors,
-            }) => (
-                <form className="auth-form login-modal__form" onSubmit={handleSubmit}>
-                        <div className="auth-input-container bounceInUp">
-                            <label className = "auth-label-field" htmlFor="email">Email</label>
-                            <input
-                            id="email"
-                            name="email"
-                            placeholder="Email"
-                            className = {`auth-field login-modal__email-input ${errors.email && touched.email ? 'error': 'success'}`}
-                            type = "email"
-                            value={values.email}
-                            onChange = {handleChange}
-                            onBlur={handleBlur}/>
-                            {errors.email && touched.email ? <p className="auth-error-validation visible">{errors.email}</p> : <p className="auth-error-validation hidden">{"error"}</p>}
-                        </div>
-                
-                        <div className="auth-input-container bounceInUp">
-                        <label className = "auth-label-field" htmlFor="password">Password</label>
-                            <input
-                            id="password"
-                            name="password"
-                            placeholder="Password"
-                            className = {`auth-field login-modal__password-input ${errors.password && touched.password ? 'error': 'success'}`}
-                            type = "password"
-                            value={values.password}
-                            onChange = {handleChange}
-                            onBlur={handleBlur}/>
-                            {errors.password && touched.password ? <p className="auth-error-validation visible">{errors.password}</p> : <p className="auth-error-validation hidden">{"error"}</p>}
-                        </div>
-                  
-                        <div className="auth-submit-container bounceInUp">
-                            <button
-                                type="submit"
-                                className="btn auth-submit">
-                                    <span>Login</span>
-                            </button>
-                        </div>
-                </form>
-            )
-            }
-            </Formik>
-     );
+
+    return ( <Formik
+        initialValues={loginFormInitialValues}
+        onSubmit={(values) =>  {
+
+            onSubmitLoginForm(values);
+        }}
+
+        validationSchema = {loginValidationSchema}>
+        {() => (
+            <Form className={styles.form}>
+                <Box sx={{display: "flex", flexDirection: "column"}}>
+                <TextField
+                    name="email"
+                    type="text"
+                    sx={{borderColor: "white"}}/>
+                <ErrorMessage 
+                name="comment"
+                component="div" />
+                </Box>
+                <Box sx={{display: "flex", flexDirection: "column"}}>
+                <TextField
+                    name="password"
+                    type="password" 
+                    sx={{borderColor: "white"}}/>
+                <ErrorMessage 
+                name="password"
+                component="div" />
+                </Box>
+                <Button type="submit" className={styles.submit}>
+                    Submit
+                </Button>
+            </Form>
+        )
+        }
+        </Formik>);
 }
  
 export default Login;

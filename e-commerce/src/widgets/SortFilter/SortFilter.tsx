@@ -12,7 +12,7 @@ interface SortFilterProps {}
 const SortFilter: React.FC<SortFilterProps> = () => {
 
     const dispatch = useDispatch();
-    const [filter, setFilter] = useState("high-price");
+    const [filter, setFilter] = useState("Newest");
 
     const handleChange = (event: SelectChangeEvent) => {
         setFilter(event.target.value);
@@ -31,7 +31,7 @@ const SortFilter: React.FC<SortFilterProps> = () => {
           value={filter}
           onChange={handleChange}
           label="Filter"
-          defaultValue={'high-price'}
+          defaultValue={'newest'}
           sx={{
             color: "white",
             '& .MuiOutlinedInput-notchedOutline': {

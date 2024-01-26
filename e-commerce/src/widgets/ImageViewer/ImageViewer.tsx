@@ -14,7 +14,6 @@ const ImageViewer: React.FC<ImageViewerProps> = (props) => {
     const { product } = props;
     const [currentImage, setCurrentImage] = useState<number>(0);
 
-    console.log(product);
     return <Box 
     sx={{display: "flex", flexDirection: "column"}}
     {...props}

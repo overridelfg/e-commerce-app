@@ -1,4 +1,5 @@
 import './App.css';
+
 import MainLayout from './layouts/MainLayout';
 import ProductList from './pages/ProductsList';
 import ProductDetails from './pages/ProductDetails';
