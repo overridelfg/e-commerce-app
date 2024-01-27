@@ -4,7 +4,7 @@ import { increaseQuantity, decreaseQuantity } from '../../components/Cart/cartSl
 import { useDispatch, useSelector } from 'react-redux';
 import { getItemQuantity } from "../../components/Cart/cartSelectors";
 import { RootState } from "../../store";
-import { IProduct } from "../../models/IProduct";
+import { IProduct } from "../../types/IProduct";
 
 interface QuantityBoxProps {
     product: IProduct;

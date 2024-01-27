@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Rating from "../../ui/Rating/Rating";
-import { IReview } from "../../models/IReview";
+import { IReview } from "../../types/IReview";
 
 interface CommentProps {
     review: IReview

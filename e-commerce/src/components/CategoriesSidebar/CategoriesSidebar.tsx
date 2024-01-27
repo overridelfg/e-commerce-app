@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { useHttp } from "../../hooks/useHttp";
-import { IProduct } from "../../models/IProduct";
+import { IProduct } from "../../types/IProduct";
 
 interface CategoriesSidebarProps {
     

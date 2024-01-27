@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IProduct } from "../../models/IProduct";
+import { IProduct } from "../../types/IProduct";
 
 export interface Cart {
     item: IProduct

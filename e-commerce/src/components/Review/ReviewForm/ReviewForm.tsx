@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import { Button } from "../../../ui";
 import Rating from "../../../ui/Rating/Rating";
 import axios from "axios";
-import { IReview } from "../../../models/IReview";
+import { IReview } from "../../../types/IReview";
 import { useHttp } from "../../../hooks/useHttp";
 import { useModalReview, useReview } from "../../../providers/ReviewProvider";
 import { current } from "@reduxjs/toolkit";

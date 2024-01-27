@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useContext, useState } from "react";
-import { IReview } from "../models/IReview";
+import { IReview } from "../types/IReview";
 
 
 interface IReviewContext {

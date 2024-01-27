@@ -6,8 +6,8 @@ import QuantityBox from "../../widgets/QuantityBox";
 import Review from "../../components/Review/Review";
 import { useEffect, useState } from "react";
 import  axios from "axios";
-import { IProduct } from "../../models/IProduct";
-import { IReview } from "../../models/IReview";
+import { IProduct } from "../../types/IProduct";
+import { IReview } from "../../types/IReview";
 import { ReviewModalProvider, ReviewProvider, useReview } from "../../providers/ReviewProvider";
 
 interface ProductDetailsProps {

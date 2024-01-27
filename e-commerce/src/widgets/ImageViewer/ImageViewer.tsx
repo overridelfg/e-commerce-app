@@ -3,7 +3,7 @@ import styles from "./ImageViewer.module.css"
 import { Box, BoxProps} from "@mui/material";
 import { useState } from "react";
 import Image from "../../ui/Image/Image";
-import { IProduct } from "../../models/IProduct";
+import { IProduct } from "../../types/IProduct";
 
 interface ImageViewerProps extends BoxProps{
     product: IProduct;

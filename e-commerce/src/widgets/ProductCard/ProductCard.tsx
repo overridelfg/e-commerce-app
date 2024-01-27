@@ -1,5 +1,5 @@
 import { Card, CardMedia, CardContent, Rating, CardProps, Typography} from "@mui/material";
-import { IProduct } from "../../models/IProduct";
+import { IProduct } from "../../types/IProduct";
 import { formatCurrency } from "../../utils/formatCurrency";
 
 interface ProductCardProps extends CardProps { 

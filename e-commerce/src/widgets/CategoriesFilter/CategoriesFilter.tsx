@@ -1,9 +1,9 @@
 import { Box, Checkbox, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useHttp } from "../../hooks/useHttp";
-import { IProduct } from "../../models/IProduct";
-import { ICateogry } from "../../models/ICategory";
-import { IGetAllCateogriesDTO } from "../../models/dto/IGetAllCateogriesDTO";
+import { IProduct } from "../../types/IProduct";
+import { ICateogry } from "../../types/ICategory";
+import { IGetAllCateogriesDTO } from "../../types/dto/IGetAllCateogriesDTO";
 
 import styles from './CategoriesFilter.module.css';
 import { useDispatch } from "react-redux";

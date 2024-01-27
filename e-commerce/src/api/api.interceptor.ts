@@ -2,7 +2,7 @@ import axios from "axios";
 import { getContentType } from "./api.helper";
 import { getAccessToken } from "../services/auth.helper";
 
-const instance = axios.create({
+export const instance = axios.create({
      baseURL: "http://localhost:3001/",
      headers: getContentType()
 });

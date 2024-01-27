@@ -4,12 +4,12 @@ import Pagination from "../../widgets/Pagination";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { IProduct } from "../../models/IProduct";
+import { IProduct } from "../../types/IProduct";
 import { Button } from "../../ui";
 import { CategoriesFilter } from "../../widgets";
 import SortFilter from "../../widgets/SortFilter/SortFilter";
 import { useHttp } from "../../hooks/useHttp";
-import { IGetAllProductsDTO } from "../../models/dto/IGetAllProductsDTO";
+import { IGetAllProductsDTO } from "../../types/dto/IGetAllProductsDTO";
 import { useSelector } from "react-redux";
 import { filtersSelector } from "../../store/filters/filtersSelector";
 

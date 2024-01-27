@@ -1,7 +1,7 @@
 import { Box, Typography, Rating } from "@mui/material";
 import Image from "../../../ui/Image/Image";
 import QuantityBox from "../../../widgets/QuantityBox/QuantityBox";
-import { IProduct } from "../../../models/IProduct";
+import { IProduct } from "../../../types/IProduct";
 import { Link } from "react-router-dom";
 import { useCart } from "../../../providers/CartProvider";
 

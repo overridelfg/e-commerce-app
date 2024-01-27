@@ -1,7 +1,7 @@
 import { Box, Rating, Typography, BoxProps } from "@mui/material";
 import { formatCurrency } from "../../utils/formatCurrency";
-import { IProduct } from "../../models/IProduct";
-import { IReview } from "../../models/IReview";
+import { IProduct } from "../../types/IProduct";
+import { IReview } from "../../types/IReview";
 import { useReview } from "../../providers/ReviewProvider";
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
