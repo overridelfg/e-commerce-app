@@ -54,7 +54,7 @@ const Modal: React.FC<ModalProps> = (props) => {
                 padding: "1rem"}}
             >
                 <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem"}}>
-                    <Typography variant = {"h4"} color = {"white"}>{sidebarHeaderTitle}</Typography>
+                    <Typography variant = {"h6"} color = {"white"}>{sidebarHeaderTitle}</Typography>
                     <Box 
                         sx={{width: "35px", height: "35px"}}
                         onClick = {() => {closeModal()}}>

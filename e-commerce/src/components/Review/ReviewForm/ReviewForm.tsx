@@ -11,6 +11,7 @@ import { IReview } from "../../../types/IReview";
 import { useHttp } from "../../../hooks/useHttp";
 import { useModalReview, useReview } from "../../../providers/ReviewProvider";
 import { current } from "@reduxjs/toolkit";
+import { useAuthSelector } from "../../../hooks/useAuthSelector";
 
  
 interface IReviewFormValues {
@@ -20,6 +21,7 @@ interface IReviewFormValues {
 
 interface ReviewFormProps {
     productId: string;
+    username: string;
 }
 
 const RatingField: React.FC = () => {
@@ -39,13 +41,11 @@ const CommentField: React.FC = () => {
 
     return (
         <Box sx={{display: "flex", flexDirection: "column"}}>
-         <TextField
+         <textarea
             name="comment"
-            type="text"
             rows={5}
-            multiline
-            sx={{borderColor: "white"}}
-            onChange = {(e: React.ChangeEvent<HTMLInputElement>) => {helpers.setValue(e.target.value)}}/>
+            className={styles.inputField}
+            onChange = {(e: React.ChangeEvent<HTMLTextAreaElement>) => {helpers.setValue(e.target.value)}}/>
         <ErrorMessage 
         className={styles.formComment}
         name="comment"
@@ -54,7 +54,7 @@ const CommentField: React.FC = () => {
     );
 };
 
-const ReviewForm: React.FC<ReviewFormProps> = ({productId}) => {
+const ReviewForm: React.FC<ReviewFormProps> = ({productId, username}) => {
 
 
     const { request } = useHttp();
@@ -72,7 +72,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({productId}) => {
 
     const reviewValidationSchema = Yup.object().shape({
         comment: Yup.string()
-                .min(4, 'Min 4 length')
+                .min(4, 'Min 4 letters')
                 .required('This field is required.'),
         rating: Yup.number()
                 .min(1, 'Put raing')
@@ -90,13 +90,13 @@ const ReviewForm: React.FC<ReviewFormProps> = ({productId}) => {
         onSubmit={(values) =>  {
 
             const date = new Date();
-            const currentDate = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDay();
+            const currentDate = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate();
 
             addReview({
                 comment: values.comment,
                 rating: values.rating,
                 productId: productId,
-                username: "User",
+                username: username,
                 createdAt: currentDate});
         }}
 

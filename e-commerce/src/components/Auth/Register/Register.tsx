@@ -8,6 +8,7 @@ import { useActions } from '../../../hooks/useActions';
 import { IEmailPassword } from '../../../store/user/user.interfaces';
 
 import styles from '../Auth.module.css';
+import { useAuth } from '../../../providers/AuthProvider';
 
 
 interface RegisterProps {
@@ -16,6 +17,7 @@ interface RegisterProps {
 
 interface IRegisterFormValues {
     email: string;
+    username: string;
     password: string;
 }
 
@@ -48,27 +50,33 @@ const Register: React.FC<RegisterProps> = () => {
 
 
     const boundActionCreators = useActions();
+    const {closeAuthModal} = useAuth()
 
     const registerValidationSchema = Yup.object().shape({
         email: Yup.string()
                 .email('Неверный email')
                 .required('This field is required.'),
+        username: Yup.string()
+                .min(4, 'Min 4 letters')
+                .required('This field is required.'),
         password: Yup.string()
-                .min(4, 'Минимум 4 символа')
+                .min(4, 'Min 4 letters')
                 .required('This field is required.')
     });
 
 
     const registerFormInitialValues : IRegisterFormValues = {
         email: '',
-        password: ''
+        password: '',
+        username: ''
     };
 
     const onSubmitRegisterForm = (values: IRegisterFormValues): void => {
 
         const emailPassword: IEmailPassword = {
             email: values.email,
-            password: values.password
+            password: values.password,
+            name: values.username
         }
 
         boundActionCreators.register(emailPassword)
@@ -79,24 +87,27 @@ const Register: React.FC<RegisterProps> = () => {
         initialValues={registerFormInitialValues}
         onSubmit={(values) =>  {
             onSubmitRegisterForm(values);
+
+            closeAuthModal();
         }}
 
         validationSchema = {registerValidationSchema}>
         {() => (
             <Form className={styles.form}>
-                <Box sx={{display: "flex", flexDirection: "column"}}>
-                    <MyTextField
-                        name="email"
-                        type="text"
-                        label="Email"
-                        sx={{borderColor: "white"}}/>
-                </Box>
-                <Box sx={{display: "flex", flexDirection: "column"}}>
-                    <MyTextField
-                        name="password"
-                        type="password" 
-                        label="Password"/>
-                </Box>
+                <MyTextField
+                    name="email"
+                    type="text"
+                    label="Email"
+                    sx={{borderColor: "white"}}/>
+                <MyTextField
+                    name="username"
+                    type="text"
+                    label="Name"
+                    sx={{borderColor: "white"}}/>
+                <MyTextField
+                    name="password"
+                    type="password" 
+                    label="Password"/>
                 <Button type="submit" className={styles.submit}>
                     Register
                 </Button>

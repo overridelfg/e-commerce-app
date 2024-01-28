@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, BoxProps, Button, Typography } from "@mui/material";
 import { useHttp } from "../../hooks/useHttp";
 import { IProduct } from "../../types/IProduct";
 import { useEffect, useState } from "react";
@@ -8,20 +8,26 @@ import ProductService from "../../services/product.service";
 import { useActions } from "../../hooks/useActions";
 import { useDispatch } from "react-redux";
 import { updateCategoryQueryParam, updateQueryParam } from "../../store/filters/filtersSlice";
+import { useAuthSelector } from "../../hooks/useAuthSelector";
+import { useAuth } from "../../providers/AuthProvider";
 
 interface CategoriesSidebarProps {
     
 }
  
-const CategoriesSidebar: React.FC<CategoriesSidebarProps> = () => {
+const CategoriesSidebar: React.FC<CategoriesSidebarProps & BoxProps> = ({sx}) => {
 
     const [categories, setCategories] = useState<ICateogry[]>([]);
-    const { setCurrentProductList } = useActions();
+
+
+    const { logout } = useActions();
+    const user = useAuthSelector().user;
+    const { openAuthModal } = useAuth();
 
     const dispatch = useDispatch();
 
     const getAllCatgories = async () => {
-        CategoryService.getAll().then(categories => {
+        await CategoryService.getAll().then(categories => {
             setCategories(categories.data.data);
         })
     };
@@ -30,11 +36,19 @@ const CategoriesSidebar: React.FC<CategoriesSidebarProps> = () => {
         dispatch(updateCategoryQueryParam({key: 'categoryNames', value: name}));
     };
 
+    const authHandler = () => {
+        if(user) {
+            logout();
+        }else{
+            openAuthModal()
+        }
+    }
+
     useEffect(() => {
         getAllCatgories();
     }, []);
 
-    return <Box sx={{display: "flex", flexDirection: "column", flexShrink: 0, width: "220px", backgroundColor: "#191f25", padding: "16px 24px"}}>
+    return <Box sx={sx}>
         <Typography variant="h5" color={"white"} sx={{marginBottom: ".4rem"}}>Categories: </Typography>
         {categories.map((category: ICateogry, id: number) => {
             return (
@@ -49,6 +63,11 @@ const CategoriesSidebar: React.FC<CategoriesSidebarProps> = () => {
                 </Typography>
             )
         })}
+        <Button 
+        sx={{marginTop: "auto"}}
+        onClick={() => {authHandler()}}>
+            {user ? "Log out" : "Log in"}
+        </Button>
     </Box>
 }
  

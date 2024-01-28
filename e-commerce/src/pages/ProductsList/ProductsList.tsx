@@ -2,6 +2,7 @@ import { Box, Container, Grid } from "@mui/material";
 import ProductCard from "../../widgets/ProductCard";
 import Pagination from "../../widgets/Pagination";
 import { Link } from "react-router-dom";
+import {Link as MuiLink} from "@mui/material";
 import { useEffect, useState } from "react";
 import { IProduct } from "../../types/IProduct";
 import { Button } from "../../ui";
@@ -49,9 +50,9 @@ const ProductList: React.FC<ProductListProps> = () => {
                     <Grid container spacing={3} sx={{marginTop: "2rem"}}>
                         {products.map((product, index) => {
                             return (<Grid key={index} item xs = {12} md={4} lg = {3}>
-                                <Link to={`product/${product._id}`}>
+                                <MuiLink component={Link} to={`product/${product._id}`} sx={{justifyContent: {xs: "center"}, display: "flex" }}>
                                     <ProductCard product={product}/>
-                                </Link>
+                                </MuiLink>
                             </Grid>)
                         })}
                     </Grid>

@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IInitialState } from "./user.interfaces";
-import { login, register } from "./user.actions";
+import { login, logout, register } from "./user.actions";
 
 const initialState: IInitialState = {
     user: localStorage.getItem('user') ? JSON.parse
@@ -33,7 +33,9 @@ export const userSlice = createSlice({
         .addCase(login.rejected, (state, action) => {
             state.isLoading = false;
         })
-
+        .addCase(logout.fulfilled, (state, action) => {
+            state.user = null;
+        })
     }
 });
 

@@ -14,10 +14,10 @@ const MainLayout: React.FC<MainLayoutProps> = () => {
     return ( 
         <CartProvider>
             <AuthModalProvider>
-                <Box sx={{display: "flex", flexDirection: "column", height: "100svh", overflow: "scroll"}}>
+                <Box sx={{display: "flex", flexDirection: "column", height: "100svh"}}>
                     <Header/>
-                    <Box sx={{display: "flex", flexGrow: "1"}}>
-                        <CategoriesSidebar/>
+                    <Box sx={{display: "flex", flexGrow: 1}}>
+                        <CategoriesSidebar sx={{display: "flex", flexDirection: "column", flexShrink: 0, width: "220px", backgroundColor: "#191f25", padding: "16px 24px"}}/>
                         <Container maxWidth = {"lg"} sx={{margin: "2rem"}}>
                             <Outlet/>
                         </Container>
