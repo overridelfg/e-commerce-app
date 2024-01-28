@@ -3,7 +3,7 @@ import { IAuthResponse, ITokens } from '../store/user/user.interfaces';
 
 export const saveTokensStorage = (data: ITokens) => {
     Cookie.set('accessToken', data.accessToken);
-    Cookie.set('refreshToken', data.refreshToken);
+    // Cookie.set('refreshToken', data.refreshToken);
 }
 
 export const getAccessToken = () => {

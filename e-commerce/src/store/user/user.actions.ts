@@ -16,15 +16,16 @@ export const register = createAsyncThunk(
     }
 );
 
-export const login = createAsyncThunk('auth/login',
-async(data: IEmailPassword, thunkApi) => {
-    try{
-        const response = await AuthService.main('login', data);
-        return response;
-    }catch(error) {
-        return thunkApi.rejectWithValue(error);
+export const login = createAsyncThunk(
+    'auth/login',
+    async(data: IEmailPassword, thunkApi) => {
+        try{
+            const response = await AuthService.main('login', data);
+            return response;
+        }catch(error) {
+            return thunkApi.rejectWithValue(error);
+        }
     }
-}
 )
 
 export const logout = createAsyncThunk(

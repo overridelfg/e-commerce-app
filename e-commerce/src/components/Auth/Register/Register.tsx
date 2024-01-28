@@ -8,12 +8,13 @@ import { useActions } from '../../../hooks/useActions';
 import { IEmailPassword } from '../../../store/user/user.interfaces';
 
 import styles from '../Auth.module.css';
-import { useAuth } from '../../../providers/AuthProvider';
-interface LoginProps {
+
+
+interface RegisterProps {
     
 }
 
-interface ILoginFormValues {
+interface IRegisterFormValues {
     email: string;
     password: string;
 }
@@ -36,54 +37,51 @@ const MyTextField: React.FC<MyTextFieldProps & TextFieldProps> = ({name, type, l
             type={type}
             onChange = {(e: React.ChangeEvent<HTMLInputElement>) => {helpers.setValue(e.target.value)}}/>
         <ErrorMessage 
-        className={styles.errorMessage}
+        className={styles.formComment}
         name={name}
         component="div" />
         </Box>
     );
 };
  
-const Login: React.FC<LoginProps> = () => {
+const Register: React.FC<RegisterProps> = () => {
 
 
     const boundActionCreators = useActions();
-    const { closeAuthModal } = useAuth()
 
-    const loginValidationSchema = Yup.object().shape({
+    const registerValidationSchema = Yup.object().shape({
         email: Yup.string()
-                .email('Wrond email')
+                .email('Неверный email')
                 .required('This field is required.'),
         password: Yup.string()
-                .min(4, 'Min 4 letters')
+                .min(4, 'Минимум 4 символа')
                 .required('This field is required.')
     });
 
 
-    const loginFormInitialValues : ILoginFormValues = {
+    const registerFormInitialValues : IRegisterFormValues = {
         email: '',
         password: ''
     };
 
-    const onSubmitLoginForm = (values: ILoginFormValues): void => {
+    const onSubmitRegisterForm = (values: IRegisterFormValues): void => {
 
         const emailPassword: IEmailPassword = {
             email: values.email,
             password: values.password
         }
 
-        boundActionCreators.login(emailPassword);
-        closeAuthModal();
-    
+        boundActionCreators.register(emailPassword)
     };
 
 
     return ( <Formik
-        initialValues={loginFormInitialValues}
+        initialValues={registerFormInitialValues}
         onSubmit={(values) =>  {
-            onSubmitLoginForm(values);
+            onSubmitRegisterForm(values);
         }}
 
-        validationSchema = {loginValidationSchema}>
+        validationSchema = {registerValidationSchema}>
         {() => (
             <Form className={styles.form}>
                 <Box sx={{display: "flex", flexDirection: "column"}}>
@@ -95,12 +93,12 @@ const Login: React.FC<LoginProps> = () => {
                 </Box>
                 <Box sx={{display: "flex", flexDirection: "column"}}>
                     <MyTextField
-                        label="Password"
                         name="password"
-                        type="password" />
+                        type="password" 
+                        label="Password"/>
                 </Box>
                 <Button type="submit" className={styles.submit}>
-                    Login
+                    Register
                 </Button>
             </Form>
         )
@@ -108,4 +106,4 @@ const Login: React.FC<LoginProps> = () => {
         </Formik>);
 }
  
-export default Login;
+export default Register;

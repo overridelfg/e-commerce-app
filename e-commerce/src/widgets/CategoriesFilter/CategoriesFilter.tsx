@@ -1,14 +1,14 @@
 import { Box, Checkbox, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useHttp } from "../../hooks/useHttp";
-import { IProduct } from "../../types/IProduct";
 import { ICateogry } from "../../types/ICategory";
-import { IGetAllCateogriesDTO } from "../../types/dto/IGetAllCateogriesDTO";
 
-import styles from './CategoriesFilter.module.css';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateQueryParam } from "../../store/filters/filtersSlice";
 import RangeFilter from "../RangeFilter/RangeFilter";
+import CategoryService from "../../services/category.service";
+
+import styles from './CategoriesFilter.module.css';
+import { filtersSelector } from "../../store/filters/filtersSelector";
 
 
 interface CategoriesFilterProps {
@@ -19,17 +19,23 @@ const CategoriesFilter: React.FC<CategoriesFilterProps> = (props) => {
 
     const [categories, setCategories]  = useState<ICateogry[]>([]);
     const { isOpen } = props;
-    const { request } = useHttp();
     const dispatch = useDispatch();
 
     const filterHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(updateQueryParam({key: 'categoryNames', value: event.target.value}))
     };
 
-    useEffect(() => {
-        request(`categories`).then((res: IGetAllCateogriesDTO) => {
-            setCategories(res.categories);
+    const selectedCategories = useSelector(filtersSelector)
+
+
+    const getAllCatgories = async () => {
+        await CategoryService.getAll().then((response) => {
+            setCategories(response.data.data);
         })
+    }
+
+    useEffect(() => {
+        getAllCatgories();
     }, []);
 
     return ( 
@@ -44,8 +50,10 @@ const CategoriesFilter: React.FC<CategoriesFilterProps> = (props) => {
                     return <FormControlLabel 
                     sx={{color: "white", gap: ".5rem", marginLeft: ".5rem"}}
                     label={category.name}
+                    key={id}
                     control={
                         <Checkbox
+                        checked = {selectedCategories.categoryNames?.find(name => category.name === name) ? true : false}
                         sx={{alignSelf: "flex-start", color: "white", padding: 0}}
                         value={category.name}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => filterHandler(e)}/>

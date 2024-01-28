@@ -54,6 +54,14 @@ const filtersSlice = createSlice({
             } else {
                 state.queryParams[key] = value as string;
             }
+        },
+        updateCategoryQueryParam: (state, action: PayloadAction<IFiltersActionsPayload>) => {
+            const {key, value} = action.payload;
+            const category = [];
+            category.push(value);
+            if(key === 'categoryNames'){
+                state.queryParams[key] = category;
+            }
         }
     }
 });
@@ -63,5 +71,6 @@ const {reducer, actions} = filtersSlice;
 export default reducer;
 
 export const {
-    updateQueryParam
+    updateQueryParam,
+    updateCategoryQueryParam
 } = actions

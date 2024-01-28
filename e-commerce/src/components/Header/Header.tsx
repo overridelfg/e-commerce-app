@@ -16,6 +16,7 @@ import Cart from "../Cart/Cart";
 import Login from "../Auth/Login/Login";
 import { SearchInput } from "../../widgets";
 import { Modal, Sidebar, Button } from "../../ui";
+import Auth from "../Auth/Auth";
 
 const Header: FC = () => {
 
@@ -58,7 +59,7 @@ const Header: FC = () => {
             <Cart/>
         </Sidebar>
         <Modal isOpen = {isAuthOpen}  closeModal = {closeAuthModal} container={document.getElementById("modal")!}>
-            <Login/>
+            <Auth/>
         </Modal>
     </Container>
 }

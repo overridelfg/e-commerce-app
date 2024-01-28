@@ -3,15 +3,13 @@ import ProductCard from "../../widgets/ProductCard";
 import Pagination from "../../widgets/Pagination";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { IProduct } from "../../types/IProduct";
 import { Button } from "../../ui";
 import { CategoriesFilter } from "../../widgets";
 import SortFilter from "../../widgets/SortFilter/SortFilter";
-import { useHttp } from "../../hooks/useHttp";
-import { IGetAllProductsDTO } from "../../types/dto/IGetAllProductsDTO";
 import { useSelector } from "react-redux";
 import { filtersSelector } from "../../store/filters/filtersSelector";
+import ProductService from "../../services/product.service";
 
 interface ProductListProps {
     
@@ -23,16 +21,17 @@ const ProductList: React.FC<ProductListProps> = () => {
     const [productsSize, setProductsSize] = useState<number>(1);
     const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
-    const { request } = useHttp();
-
     const filtersQuery = useSelector(filtersSelector);
 
-    useEffect(() => {
-       request(`products?page=${filtersQuery.page}&perPage=${filtersQuery.perPage}&sort=${filtersQuery.sort}&categoryNames=${filtersQuery.categoryNames}&searchTerm=${filtersQuery.searchTerm}&minPrice=${filtersQuery.minPrice}&maxPrice=${filtersQuery.maxPrice}`, 'get', {
-       }).then((res: IGetAllProductsDTO) => {
-            setProducts(res.products);
-            setProductsSize(res.length);
+    const getAllProducts = async () => {
+        await ProductService.getAll(filtersQuery).then((response) => {
+            setProducts(response.data.products);
+            setProductsSize(response.data.length);
         })
+    };
+
+    useEffect(() => {
+        getAllProducts();
     }, [filtersQuery]);
 
 

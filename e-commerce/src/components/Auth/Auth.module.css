@@ -7,3 +7,28 @@
 .submit {
     margin-top: auto;
 }
+
+.inputField {
+    outline: 1px solid white;
+    border: unset;
+    height: 50px;
+    font-size: 1.1rem;
+    padding: 1rem;
+    width: 100%;
+    border-radius: 4px;
+    background-color: transparent;
+    color: white;
+}
+
+.inputField:focus {
+    outline: 1px solid var(--color-primary-200);
+    border: unset;
+}
+
+.inputLabel {
+    color: white;
+}
+
+.errorMessage {
+    color: rgb(155, 9, 9);
+}

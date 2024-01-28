@@ -11,7 +11,7 @@ export interface IInitialState  {
 
 export interface ITokens {
     accessToken: string;
-    refreshToken: string;
+    // refreshToken: string;
 }
 
 export interface IEmailPassword {
